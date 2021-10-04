@@ -75,15 +75,28 @@ const connectToPubNub = async () => {
     },
   });
 
+  /*
+{
+	"content":str(chatMessage),
+	"id":str(uuid.uuid4()),
+	"avatarId":str(self.bot.pubnub_chat_avatarId),
+	"userName":str(self.bot.pubnub_chat_userName),
+	"userId":int(self.bot.pubnub_chat_userId),
+	"color":"#2DF997",
+	"userUuid":str(self.bot.uuid)}
+*/
+
   const publishPayload = {
     channel: 'thegarage',
     message: {
+      avatarId: 1,
       content: 'from app',
+      id: String(uuidv4()),
+      userId: 'brekt',
+      userName: 'brektBot',
+      userUuid: creds.userUuid,
+      color: '#2DF997',
     },
-    id: uuidv4(),
-    userId: 'brekt',
-    userUuid: creds.userUuid,
-    color: '#2DF997',
   };
 
   pubnub.publish(publishPayload, function (status, response) {
